@@ -165,9 +165,9 @@ function Body() {
                     {data.map((item) => {
                         return <tbody className='bg-[#ebe4ff]  ' key={item._id}>
                             <tr>
-                                <td><div className='tdFlex'><a href={item.url} target='_blank'>{item.url} </a><img src="./copy.png" className='cursor-pointer' onClick={() => { copy(item.url) }} /></div></td>
-                                <td><div className='tdFlex'><div>{item.username}</div><img src="./copy.png" className='cursor-pointer' onClick={() => { copy(item.username) }} /></div></td>
-                                <td><div className='tdFlex'><div>{"*".repeat(item.password.length)}</div><img src="./copy.png" className='cursor-pointer' onClick={() => { copy(item.password) }} /></div></td>
+                                <td><div className='tdFlex'><a href={item.url} target='_blank'>{item.url} </a><img src="/copy.png" className='cursor-pointer' onClick={() => { copy(item.url) }} /></div></td>
+                                <td><div className='tdFlex'><div>{item.username}</div><img src="/copy.png" className='cursor-pointer' onClick={() => { copy(item.username) }} /></div></td>
+                                <td><div className='tdFlex'><div>{"*".repeat(item.password.length)}</div><img src="/copy.png" className='cursor-pointer' onClick={() => { copy(item.password) }} /></div></td>
                                 <td>
                                     <div className='tdFlex'>
                                         <button onClick={() => { editClick(item._id) }} ><lord-icon
