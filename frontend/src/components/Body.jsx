@@ -11,7 +11,7 @@ function Body() {
     const eyeRef = useRef()
 
     const getDataFromMongoDB = async()=>{
-        let data = await fetch("http://localhost:3000/");
+        let data = await fetch(`${process.env.URL}`);
         let passwords = await data.json()
         setData(passwords)
         setClick(false)
@@ -25,7 +25,7 @@ function Body() {
     }
     const saveClick = async() => {
         if (form.url.length > 3 && form.username.length > 3 && form.password.length > 4) {
-            await fetch('http://localhost:3000/', {
+            await fetch(`${process.env.URL}`, {
                 method: 'POST',
                 body: JSON.stringify(form),
                 headers: {
@@ -54,7 +54,7 @@ function Body() {
             let anotherData = data.filter((e) => {
                 return e._id == id
             })
-            await fetch('http://localhost:3000/', {
+            await fetch(`${process.env.URL}`, {
                 method: 'DELETE',
                 body: JSON.stringify(anotherData[0]),
                 headers: {
@@ -69,7 +69,7 @@ function Body() {
             return e._id == id
         })
         setForm(newData[0])
-        await fetch('http://localhost:3000/', {
+        await fetch(`${process.env.URL}`, {
             method: 'DELETE',
             body: JSON.stringify(newData[0]),
             headers: {

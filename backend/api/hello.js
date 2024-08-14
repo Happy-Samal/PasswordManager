@@ -1,15 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
 import mongoose from 'mongoose';
-import {passOP} from './models/info.js'
+import {passOP} from '../models/info.js'
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 
-await mongoose.connect("mongodb://localhost:27017/passOP");
+await mongoose.connect(`${process.env.MONGO_URI}`);
 
 app.use(bodyParser.json())
-app.use(cors())
 
 app.get('/', async (req, res) => {
     let data = await passOP.find({});
@@ -26,5 +24,5 @@ app.delete('/',async(req,res)=>{
     res.send({success:true,result:result})
 })
 app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}/`)
+  console.log(`Example app listening on port ${port}/`)
 })

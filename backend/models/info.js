@@ -5,4 +5,4 @@ const passOPSchema = new mongoose.Schema({
     password:'string',
 });
 
-export const passOP = mongoose.model('passwords', passOPSchema);
+export default mongoose.passOPSchema || mongoose.model('passwords', passOPSchema);
