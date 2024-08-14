@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
-import {passOP} from '../models/info.js'
+import {passOP} from './models/info.js'
 const app = express()
 const port = process.env.PORT || 3000;
 
