@@ -5,7 +5,7 @@ import {passOP} from './models/info.js'
 const app = express()
 const port = process.env.PORT || 3000;
 
-await mongoose.connect(`${process.env.MONGO_URI}`);
+await mongoose.connect(process.env.MONGO_URI);
 
 app.use(bodyParser.json())
 
