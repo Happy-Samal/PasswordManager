@@ -11,12 +11,21 @@ function Body() {
     const eyeRef = useRef()
     const url = import.meta.env.VITE_URL;
     
-    const getDataFromMongoDB = async()=>{
-        let data = await fetch(url);
-        let passwords = await data.json()
-        setData(passwords)
-        setClick(false)
-    }
+    const getDataFromMongoDB = async () => {
+        try {
+            let response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let data = await response.json();
+            setData(data);
+            setClick(false);
+        } catch (error) {
+            console.error('Fetch error:', error);
+            toast.error('Failed to fetch data');
+        }
+    };
+
     useEffect(() => {
         getDataFromMongoDB();
     }, [click])
@@ -24,47 +33,61 @@ function Body() {
     const inputClicked = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
-    const saveClick = async() => {
-        if (form.url.length > 3 && form.username.length > 3 && form.password.length > 4) {
-            await fetch(url, {
+    const saveClick = async () => {
+    if (form.url.length > 3 && form.username.length > 3 && form.password.length > 4) {
+        try {
+            let response = await fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(form),
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
             });
-            setForm({ url: "", username: "", password: "" })
-            setClick(true)
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            setForm({ url: "", username: "", password: "" });
+            setClick(true);
+        } catch (error) {
+            console.error('Fetch error:', error);
+            toast.error('Failed to save data');
         }
-        else {
-            toast('🦄 Password is invalid', {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
+    } else {
+        toast('🦄 Password is invalid', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
-    const deleteClick = async(id) => {
-        let cnf = confirm("Are sure to delete!")
-        if (cnf) {
-            let anotherData = data.filter((e) => {
-                return e._id == id
-            })
-            await fetch(url, {
+};
+
+const deleteClick = async (id) => {
+    let cnf = confirm("Are you sure you want to delete?");
+    if (cnf) {
+        try {
+            let itemToDelete = data.find((e) => e._id === id);
+            let response = await fetch(url, {
                 method: 'DELETE',
-                body: JSON.stringify(anotherData[0]),
+                body: JSON.stringify(itemToDelete),
                 headers: {
-                  'Content-Type': 'application/json'
-                }
-              });
-            setClick(true)
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            setClick(true);
+        } catch (error) {
+            console.error('Fetch error:', error);
+            toast.error('Failed to delete data');
         }
     }
+};
     const editClick = async(id) => {
         let newData = data.filter((e) => {
             return e._id == id

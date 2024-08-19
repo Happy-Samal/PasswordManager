@@ -8,13 +8,13 @@ import cors from 'cors';
 import { passOP } from './models/info.js';
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 // CORS configuration
 const corsOptions = {
     origin: 'https://password-manager-happy-samal.vercel.app',
-    methods: 'GET,POST,DELETE',
-    allowedHeaders: 'Content-Type',
+    methods: ['GET', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
 };
 
 app.use(cors(corsOptions));
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.get('/', async (req, res) => {
     try {
         let data = await passOP.find({});
-        res.json(data); // Use res.json() for proper JSON response
+        res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -36,7 +36,7 @@ app.post('/', async (req, res) => {
     try {
         let data = req.body;
         let result = await passOP.insertMany(data);
-        res.json({ success: true, result: result }); // Use res.json() for proper JSON response
+        res.json({ success: true, result: result });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -46,12 +46,12 @@ app.delete('/', async (req, res) => {
     try {
         let data = req.body;
         let result = await passOP.deleteOne(data);
-        res.json({ success: true, result: result }); // Use res.json() for proper JSON response
+        res.json({ success: true, result: result });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on ${port}`);
+    console.log(`Server listening on port ${port}`);
 });
