@@ -9,11 +9,10 @@ function Body() {
     const [data, setData] = useState([])
     const [click,setClick] = useState(false)
     const eyeRef = useRef()
-    const url = import.meta.env.VITE_URL;
     
     const getDataFromMongoDB = async () => {
         try {
-            let response = await fetch(url);
+            let response = await fetch('https://password-manager-backend-happy-samal.vercel.app/');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -36,7 +35,7 @@ function Body() {
     const saveClick = async () => {
     if (form.url.length > 3 && form.username.length > 3 && form.password.length > 4) {
         try {
-            let response = await fetch(url, {
+            let response = await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
                 method: 'POST',
                 body: JSON.stringify(form),
                 headers: {
@@ -71,7 +70,7 @@ const deleteClick = async (id) => {
     if (cnf) {
         try {
             let itemToDelete = data.find((e) => e._id === id);
-            let response = await fetch(url, {
+            let response = await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
                 method: 'DELETE',
                 body: JSON.stringify(itemToDelete),
                 headers: {
@@ -93,7 +92,7 @@ const deleteClick = async (id) => {
             return e._id == id
         })
         setForm(newData[0])
-        await fetch(url, {
+        await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
             method: 'DELETE',
             body: JSON.stringify(newData[0]),
             headers: {
