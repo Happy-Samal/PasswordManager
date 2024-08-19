@@ -1,14 +1,17 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
 import cors from "cors"
 import {passOP} from './models/info.js'
 const app = express()
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(cors())
 
-await mongoose.connect("mongodb://localhost:27017/PassOP");
+await mongoose.connect(process.env.MONGO_URI);
 
 app.use(bodyParser.json())
 
@@ -27,5 +30,5 @@ app.delete('/',async(req,res)=>{
     res.send({success:true,result:result})
 })
 app.listen(port, () => {
-    console.log(`Example app listening on  http://localhost:${port}`)
+    console.log(`Example app listening on  ${port}`)
 })
