@@ -9,22 +9,13 @@ function Body() {
     const [data, setData] = useState([])
     const [click,setClick] = useState(false)
     const eyeRef = useRef()
-    
-    const getDataFromMongoDB = async () => {
-        try {
-            let response = await fetch('https://password-manager-backend-happy-samal.vercel.app/');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            let data = await response.json();
-            setData(data);
-            setClick(false);
-        } catch (error) {
-            console.error('Fetch error:', error);
-            toast.error('Failed to fetch data');
-        }
-    };
 
+    const getDataFromMongoDB = async()=>{
+        let data = await fetch('https://password-manager-backend-happy-samal.vercel.app/');
+        let passwords = await data.json()
+        setData(passwords)
+        setClick(false)
+    }
     useEffect(() => {
         getDataFromMongoDB();
     }, [click])
@@ -32,61 +23,47 @@ function Body() {
     const inputClicked = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
-    const saveClick = async () => {
-    if (form.url.length > 3 && form.username.length > 3 && form.password.length > 4) {
-        try {
-            let response = await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
+    const saveClick = async() => {
+        if (form.url.length > 3 && form.username.length > 3 && form.password.length > 4) {
+            await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
                 method: 'POST',
                 body: JSON.stringify(form),
                 headers: {
-                    'Content-Type': 'application/json',
-                },
+                    'Content-Type': 'application/json'
+                }
             });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            setForm({ url: "", username: "", password: "" });
-            setClick(true);
-        } catch (error) {
-            console.error('Fetch error:', error);
-            toast.error('Failed to save data');
+            setForm({ url: "", username: "", password: "" })
+            setClick(true)
         }
-    } else {
-        toast('🦄 Password is invalid', {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
+        else {
+            toast('🦄 Password is invalid', {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     }
-};
-
-const deleteClick = async (id) => {
-    let cnf = confirm("Are you sure you want to delete?");
-    if (cnf) {
-        try {
-            let itemToDelete = data.find((e) => e._id === id);
-            let response = await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
+    const deleteClick = async(id) => {
+        let cnf = confirm("Are sure to delete!")
+        if (cnf) {
+            let anotherData = data.filter((e) => {
+                return e._id == id
+            })
+            await fetch('https://password-manager-backend-happy-samal.vercel.app/', {
                 method: 'DELETE',
-                body: JSON.stringify(itemToDelete),
+                body: JSON.stringify(anotherData[0]),
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            setClick(true);
-        } catch (error) {
-            console.error('Fetch error:', error);
-            toast.error('Failed to delete data');
+                  'Content-Type': 'application/json'
+                }
+              });
+            setClick(true)
         }
     }
-};
     const editClick = async(id) => {
         let newData = data.filter((e) => {
             return e._id == id
