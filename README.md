@@ -10,10 +10,11 @@ click - https://password-manager-happy-samal.vercel.app/
 
 ## Technologies Used
 
-- **Frontend**: ReactJS, Tailwind CSS
-- **Backend**: NodeJS, Express JS
-- **DataBase**: MongoDB
-- 
+- **Frontend**: ReactJS
+- **Backend**: ExpressJS (NodeJs)
+- **DataBase**: Mongoose (MongoDB)
+- **Styling**: Tailwind CSS
+
 ## Getting Started
 
 ### Prerequisites
@@ -27,7 +28,7 @@ click - https://password-manager-happy-samal.vercel.app/
 
    ```sh
    git clone https://github.com/Happy-Samal/PasswordManager.git
-   cd Todo-List
+   cd PasswordManager
     ```
 
 1. **Install dependencies:**
