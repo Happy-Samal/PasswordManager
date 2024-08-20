@@ -5,12 +5,12 @@ import mongoose from 'mongoose';
 import cors from "cors"
 import {passOP} from './models/info.js'
 const app = express()
-const port =3000;
+const port = process.env.PORT || 3000
 
 
 app.use(cors())
+await mongoose.connect(process.env.MONGO_URI);
 
-await mongoose.connect("mongodb+srv://rudra-samal:Y6U0QfaAYinL4npb@needmoney.iag7g.mongodb.net/PassOP");
 
 app.use(bodyParser.json())
 
