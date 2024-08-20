@@ -1,57 +1,35 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
-import bodyParser from 'body-parser';
+import express from 'express'
+import bodyParser from 'body-parser'
 import mongoose from 'mongoose';
-import cors from 'cors';
-import { passOP } from './models/info.js';
+import cors from "cors"
+import {passOP} from './models/info.js'
+const app = express()
+const port = process.env.PORT || 3000;
 
-const app = express();
-const port = process.env.PORT || 5000;
 
-// CORS configuration
-const corsOptions = {
-    origin: 'https://password-manager-happy-samal.vercel.app',
-    methods: ['GET', 'POST', 'DELETE'],
-    allowedHeaders: ['Content-Type'],
-};
-
-app.use(cors(corsOptions));
+app.use(cors())
 
 await mongoose.connect(process.env.MONGO_URI);
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 app.get('/', async (req, res) => {
-    try {
-        let data = await passOP.find({});
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.post('/', async (req, res) => {
-    try {
-        let data = req.body;
-        let result = await passOP.insertMany(data);
-        res.json({ success: true, result: result });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.delete('/', async (req, res) => {
-    try {
-        let data = req.body;
-        let result = await passOP.deleteOne(data);
-        res.json({ success: true, result: result });
-    } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
+    let data = await passOP.find({});
+    res.send(data)
+})
+app.post('/',async(req,res)=>{
+    let data = req.body
+    let result = await passOP.insertMany(data)
+    res.send({success:true,result:result})
+})
+app.delete('/',async(req,res)=>{
+    let data = req.body
+    let result = await passOP.deleteOne(data)
+    res.send({success:true,result:result})
+})
 app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-});
+    console.log(`Example app listening on  ${port}`)
+})
