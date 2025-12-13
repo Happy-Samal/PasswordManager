@@ -37,8 +37,9 @@ function Navbar() {
         {
           isLogin?.success ?
             <div>
-
-              <button onClick={() => { logoutClick() }} className=' py-1 px-2 m-2 sm:text-base text-[10px] bg-white text-indigo-700 font-semibold rounded-lg shadow hover:bg-gray-200 transition cursor-pointer'>Logout</button>
+                
+              {/* <button onClick={() => { logoutClick() }} className=' py-1 px-2 m-2 sm:text-base text-[10px] bg-white text-indigo-700 font-semibold rounded-lg shadow hover:bg-gray-200 transition cursor-pointer'>Logout</button> */}
+              
               <Link to={'/user/data'}>
                 <button className=' py-1 px-2 m-2 sm:text-base text-[10px] bg-white text-indigo-700 font-semibold rounded-lg shadow hover:bg-gray-200 transition cursor-pointer'>{isLogin?.user?.username}</button>
               </Link>
