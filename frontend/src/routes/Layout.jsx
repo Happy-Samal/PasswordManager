@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../componets/Navbar'
-import Footer from '../componets/Footer'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
 import { HeadProvider } from 'react-head'
 import { ToastContainer } from 'react-toastify'
