@@ -31,6 +31,7 @@ const Signup = () => {
   const handleSubmit = async(e) => {
     setLoading(true)
     e.preventDefault();
+    console.log("url" ,import.meta.env.VITE_BACKEND_URL);
     try{
       let response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
         {
