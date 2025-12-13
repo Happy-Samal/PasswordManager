@@ -115,7 +115,7 @@ const Login = () => {
             className="w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition cursor-pointer"
           >
             {loading ?
-                   <Loader className="text-gray-600 mr-2"  size={20} />
+                   <Loader className="text-white mr-2"  size={20} />
                     :
                     <span>Login</span>
             }
