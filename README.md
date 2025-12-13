@@ -14,6 +14,7 @@ click - https://password-manager-happy-samal.vercel.app/
 - **Backend**: ExpressJS (NodeJs)
 - **DataBase**: Mongoose (MongoDB)
 - **Styling**: Tailwind CSS
+- **Secure**: Bcrypt, JWT
 
 ## Getting Started
 

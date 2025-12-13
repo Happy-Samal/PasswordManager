@@ -1,18 +1,13 @@
-import './App.css'
-import Body from './components/Body'
-import Footer from './components/Footer'
-import Navbar from './components/Navbar'
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import Router from "./routes/Router";
 
 function App() {
-
-
   return (
     <>
-      <Navbar/>
-      <Body/>
-      <Footer/>
+      <RouterProvider router={Router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

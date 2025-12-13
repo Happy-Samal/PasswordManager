@@ -1,15 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer components{
-    .myContainer{
-        @apply container px-56 py-10  mx-auto;
-    }
+
+.bg-url1 {
+  background-image: url('/notfound.gif');
+  height: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-@layer components{
-    .tdFlex{
-        @apply justify-center items-center flex gap-2;
-    }
-}
+
