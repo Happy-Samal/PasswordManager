@@ -2,7 +2,9 @@
 
 ## Overview
 
-Password Manager is a web application designed for save your password . It allows users to save password list.
+Password Manager is a web application that allows users to securely store and manage their passwords in one place. All sensitive data is stored in a database and protected using modern authentication and encryption techniques.
+
+The application supports user authentication, encrypted password storage, and protected routes so that only authenticated users can access their saved credentials.
 
 ## Website host on
 
