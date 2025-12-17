@@ -1,4 +1,7 @@
 import userSer from '../services/UserService.js'
+const frontendUrl = new URL(process.env.FRONTEND_URL); // To get Full URL
+const frontendDomain = frontendUrl.hostname; // Extract the domain part only
+
 
 const signup = async (req,res)=>{
      try {
@@ -23,6 +26,9 @@ const login = async(req,res)=>{
          secure:true,
          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
          sameSite: 'None' ,
+         domain: frontendDomain, // add for working on same domain 
+         path: '/',  // add for set cokie on path
+            
         }).json({
           success: true,
           message: 'Login Successfully!',
@@ -47,6 +53,8 @@ const logout = async (req, res) => {
         httpOnly: true, 
         secure: true,  
         sameSite: 'None',
+        domain: frontendDomain,
+        path: '/',
     }).json({
         success: true,
         message: "Logout Successfully!",
